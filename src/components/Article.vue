@@ -4,8 +4,8 @@
     <div v-html="article"></div>
     <!-- 上一章与下一章切换 -->
     <div class="flip">
-      <div class="pageup">上一章</div>
-      <div class="pagedown">下一章</div>
+      <div class="pageup" @click="toggle('up')">上一章</div>
+      <div class="pagedown" @click="toggle('down')">下一章</div>
     </div>
     <!-- 返回顶部按钮 -->
     <div class="fixed-btn" v-show="btnShow">
@@ -27,7 +27,9 @@ export default {
       // 文章数据
       article: '',
       // 顶部进度条宽度
-      width: '0%'
+      width: '0%',
+      // 笔记列表
+      noteList: []
     }
   },
   computed: {
@@ -41,6 +43,8 @@ export default {
     this.getArticle()
     // 注册滚动事件
     window.addEventListener('scroll', this.handleScroll, true)
+    // 请求笔记数据
+    this.getNoteList()
   },
   destroyed() {
     // 离开该页面需要移除这个监听的事件，不然会报错
@@ -95,6 +99,33 @@ export default {
           window.scrollTo(0, scrollTo)
         }, 10)
       }
+    },
+    // 请求笔记数据
+    async getNoteList() {
+      // 向后台请求数据
+      const result = await this.$axios.get('/note/findNoteList')
+      // 请求失败处理-
+      if (result.status !== 200) return console.log('获取数据失败')
+      // 将数据赋值给noteList
+      this.noteList = result.data
+      console.log(this.noteList)
+    },
+    // 上一章
+    toggle(count) {
+      const { id } = this.$route.params
+      const index = this.noteList.findIndex((note) => note.name === id)
+      let note
+      if (count === 'up') {
+        if (index === 0) return
+        note = this.noteList[index - 1].name
+      } else {
+        if (index === this.noteList.length) return
+        note = this.noteList[index + 1].name
+      }
+
+      console.log(note)
+      // this.$router.push(note)
+      window.location = note
     }
   }
 }

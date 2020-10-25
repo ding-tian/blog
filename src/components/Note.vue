@@ -7,7 +7,7 @@
     </div>
     <ul class="note_list">
       <li v-for="(note, index) in noteList" :key="index">
-        <router-link class="note" :to="'article/' + note.name">
+        <router-link class="note" :to="'article/' + note.name" :key="index">
           <p class="item_header" v-text="note.name"></p>
           <span class="ctime">{{ note.ctime | formatDate }}</span>
           <p v-html="note.content"></p>
@@ -24,15 +24,12 @@ export default {
   data() {
     return {
       // 笔记列表
-      noteList: [],
-      // 保存this
-      that: ''
+      noteList: []
     }
   },
   created() {
     // 请求笔记数据
     this.getNoteList()
-    this.that = this
   },
   methods: {
     // 请求笔记数据

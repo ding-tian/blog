@@ -51,6 +51,15 @@ export default {
   mounted() {
     // 获取激活标签的索引
     this.itemActive = +sessionStorage.getItem('itemActive') || 0
+    this.lists.some((ele, index) => {
+      if (window.location.pathname === '/' || window.location.pathname === '/index') {
+        this.itemActive = 0
+        return false
+      }
+      if (ele.path === window.location.pathname) {
+        this.itemActive = index
+      }
+    })
   },
   methods: {
     tabClass(i) {

@@ -6,7 +6,7 @@
       </p>
     </div>
     <div class="guoguang">
-      <a> <img src="../assets/6.jpg" alt="" @load="fun"/></a>
+      <a> <img src="../assets/computer.jpg" alt="" @load="fun"/></a>
       <div class="work-header" v-show="show">
         <div class="work-meta">
           <time>March 3,2017-November 11,2018</time>
