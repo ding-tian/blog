@@ -1,32 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Header />
+    <router-view name="main" class="site-content"></router-view>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Header from './components/Header'
+export default {
+  name: 'app',
+  components: {
+    Header
+  }
 }
+</script>
 
-#nav {
-  padding: 30px;
+<style scoped>
+.site-content {
+  padding-left: 3vw;
+  padding-right: 3vw;
+  max-width: 1080px;
+  margin-left: 300px;
+  padding-bottom: 3.333333em;
+  padding-top: 3.333333em;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+/* @media only screen and (min-width: 901px) {
+  .site-content {
+    margin-left: 300px;
+    padding-bottom: 3.333333em;
+    padding-top: 3.333333em;
+  }
+} */
+@media only screen and (max-width: 900px) {
+  .site-content {
+    margin-left: 30vw;
+    padding-bottom: 3.3333em;
+    padding-top: 3.3333em;
+  }
 }
 </style>
