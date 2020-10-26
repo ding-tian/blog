@@ -5,6 +5,7 @@
         笔记列表
       </h2>
     </div>
+    <!-- 笔记列表 -->
     <ul class="note_list">
       <li v-for="(note, index) in noteList" :key="index">
         <router-link class="note" :to="'article/' + note.name" :key="index">
@@ -14,6 +15,17 @@
         </router-link>
       </li>
     </ul>
+
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagination.page"
+      :page-sizes="[3, 4, 5, 8]"
+      :page-size="pagination.size"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+    >
+    </el-pagination>
   </div>
 </template>
 
@@ -24,7 +36,14 @@ export default {
   data() {
     return {
       // 笔记列表
-      noteList: []
+      noteList: [],
+      // 分页参数
+      pagination: {
+        page: 1,
+        size: 3
+      },
+      // 笔记总数量
+      total: 0
     }
   },
   created() {
@@ -35,12 +54,26 @@ export default {
     // 请求笔记数据
     async getNoteList() {
       // 向后台请求数据
-      const result = await this.$axios.get('/note/findNoteList')
+      const result = await this.$axios.get('/note/findNoteList', {
+        params: this.pagination
+      })
       // 请求失败处理
       if (result.status !== 200) return console.log('获取数据失败')
       // 将数据赋值给noteList
-      this.noteList = result.data
+      console.log(result.data)
+      this.noteList = result.data.noteList
+      this.total = result.data.total
       console.log(this.noteList)
+    },
+    // 当每页显示的数量发生变化时触发
+    handleSizeChange(size) {
+      this.pagination.size = size
+      this.getNoteList()
+    },
+    // 当前页发生改变触发
+    handleCurrentChange(page) {
+      this.pagination.page = page
+      this.getNoteList()
     }
   },
   filters: {

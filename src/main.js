@@ -14,6 +14,8 @@ import axios from 'axios'
 // 导入 nprogress 包对应的js和css
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+// 引入 element-ui
+import './plugins/element.js'
 
 Vue.config.productionTip = false
 // 将axios挂载到Vue原型上
