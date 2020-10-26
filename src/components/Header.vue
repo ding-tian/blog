@@ -5,7 +5,7 @@
         <div class="site-branding">
           <p class="profile">
             <!-- 头像 -->
-            <router-link to="/index">
+            <router-link to="/index" @click.native="tabClass(0)">
               <img src="../assets/logo.jpg" alt="" />
             </router-link>
           </p>
@@ -26,6 +26,9 @@
                 >
               </li>
             </ul>
+          </div>
+          <div class="wx">
+            <img src="../assets/wx.jpg" alt="" />
           </div>
         </div>
       </div>
@@ -98,27 +101,35 @@ export default {
       color: rgb(102, 102, 102);
     }
   }
-  .menu {
-    font-size: 0.8rem;
-    color: #aaa;
-    line-height: 1.5;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border-bottom: 1px solid #333;
-    .menu-item {
-      border-top: 1px solid #333;
-      padding: 0.5rem 0;
-      a {
-        color: #aaa;
-        cursor: pointer;
-        &:hover {
-          color: #d4a259;
+  .site-nav-inside {
+    .menu {
+      font-size: 0.8rem;
+      color: #aaa;
+      line-height: 1.5;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #333;
+      .menu-item {
+        border-top: 1px solid #333;
+        padding: 0.5rem 0;
+        a {
+          color: #aaa;
+          cursor: pointer;
+          &:hover {
+            color: #d4a259;
+          }
+        }
+        .meni-item-select {
+          color: #dea259 !important;
         }
       }
-      .meni-item-select {
-        color: #dea259 !important;
-      }
     }
+  }
+
+  .wx img {
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
   }
 }
 

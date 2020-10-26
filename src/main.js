@@ -11,12 +11,25 @@ import './assets/font/iconfont.css'
 
 // 引入axios
 import axios from 'axios'
+// 导入 nprogress 包对应的js和css
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 // 将axios挂载到Vue原型上
 Vue.prototype.$axios = axios
-// 设置ajax请求时的url
+// 配置请求的根路径
 axios.defaults.baseURL = 'http://localhost:80'
+// 在request中展示进度条 NProgress.start()
+axios.interceptors.request.use((config) => {
+  NProgress.start()
+  return config
+})
+// 在response中隐藏进度条 NProgress.done()
+axios.interceptors.response.use((config) => {
+  NProgress.done()
+  return config
+})
 new Vue({
   router,
   render: (h) => h(App)
